@@ -36,15 +36,31 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  ListTile _artistTile(Artist artist) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(artist.name.substring(0, 2)),
-        backgroundColor: Colors.blue[100],
+  Widget _artistTile(Artist artist) {
+    return Dismissible(
+      key: Key(artist.id),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        print(artist.id);
+      },
+      background: Container(
+          padding: EdgeInsets.only(left: 20),
+          color: Colors.red,
+          child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Delete Artist',
+                style: TextStyle(color: Colors.white),
+              ))),
+      child: ListTile(
+        leading: CircleAvatar(
+          child: Text(artist.name.substring(0, 2)),
+          backgroundColor: Colors.blue[100],
+        ),
+        title: Text(artist.name),
+        trailing: Text('${artist.votes}', style: TextStyle(fontSize: 20)),
+        onTap: () => print(artist.name),
       ),
-      title: Text(artist.name),
-      trailing: Text('${artist.votes}', style: TextStyle(fontSize: 20)),
-      onTap: () => print(artist.name),
     );
   }
 
